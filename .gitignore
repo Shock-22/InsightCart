@@ -1,0 +1,13 @@
+__pycache__/
+env/
+*.pyc
+*.pyo
+*.pyd
+.Python
+product_data.json
+temp.py
+.env
+.venv
+.idea/
+.vscode/
+*.log
