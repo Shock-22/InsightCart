@@ -74,16 +74,29 @@ def scrape_amazon(url):
         
         # Extract rating distribution
         rating_bars = soup.select('tr[data-hook="rating-distribution-row"]')
+        # Try the original method first
         for bar in rating_bars:
             rating = bar.select_one('td:first-child a')
             percentage = bar.select_one('td:last-child span')
             if rating and percentage:
-                rating_text = rating.text.strip().split()[0]  # Get the star number
+                rating_text = rating.text.strip().split()[0]
                 percentage_text = percentage.text.strip().replace('%', '')
                 try:
                     product_data['rating_distribution'][rating_text] = float(percentage_text)
                 except ValueError:
                     continue
+        
+        # If no ratings found, try the histogram table format
+        if all(v == 0 for v in product_data['rating_distribution'].values()):
+            histogram = soup.select('#histogramTable li a')
+            for rating_elem in histogram:
+                aria_label = rating_elem.get('aria-label', '')
+                if aria_label:
+                    match = re.search(r'(\d+) percent.*?(\d+) stars?', aria_label)
+                    if match:
+                        percentage = match.group(1)
+                        stars = match.group(2)
+                        product_data['rating_distribution'][stars] = float(percentage)
 
         # Extract reviews with specific data-hook attributes from Amazon HTML structure
         reviews = soup.select('div[data-hook="review"], li[id][data-hook="review"]')
