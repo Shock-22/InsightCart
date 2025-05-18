@@ -100,3 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## ⚠️ Disclaimer
 
 This tool is for educational purposes only. Please ensure compliance with Amazon's terms of service when using the scraping functionality.
+
+
+## P.S
+Shakithiyan.
