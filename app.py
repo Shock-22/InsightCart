@@ -386,7 +386,7 @@ def display_chatbot_interface():
     st.markdown("Ask questions about the product and get AI-powered answers.")
     
     # API Key input
-    api_key = "AIzaSyAK9Q_WSN7WaVxbb3bHvjZwkMiVYgwVTR8"
+    api_key = ""
     configure_gemini_api(api_key)
     
     # Chat interface
